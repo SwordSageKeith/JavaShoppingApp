@@ -4,8 +4,9 @@ public class Item {
 	private String ItemCode;
 	private String ItemName;
 	private double Price;
+	private int invoiceID;
 	
-	Item (String code, String name, double price){
+	public Item (String code, String name, double price){
 		ItemCode = code;
 		ItemName = name;
 		Price = price;
@@ -29,4 +30,13 @@ public class Item {
 	public void setPrice(double price) {
 		Price = price;
 	}
+
+	public int getInvoiceID() {
+		return invoiceID;
+	}
+
+	public void setInvoiceID(int invoiceID) {
+		this.invoiceID = invoiceID;
+	}
+	
 }

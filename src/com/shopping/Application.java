@@ -7,7 +7,7 @@ public class Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		
+
 		Boolean run = true;
 		while (run) {
 			System.out.println("Select form the following options:");
@@ -15,11 +15,11 @@ public class Application {
 			System.out.println("2: Create Account");
 			System.out.println("3: Exit");
 			String x = scanner.next();
-			if (x .equals("1")) {
+			if (x.equals("1")) {
 				Login();
-			} else if (x .equals("2")) {
+			} else if (x.equals("2")) {
 				CreateAccount();
-			}else if (x .equals("3")) {
+			} else if (x.equals("3")) {
 				run = false;
 			} else {
 				System.out.println("Please enter a valid input");
@@ -27,7 +27,7 @@ public class Application {
 		}
 		scanner.close();
 	}
-	
+
 	public static void CreateAccount() {
 		clearConsole();
 		String name;
@@ -67,7 +67,7 @@ public class Application {
 		clearConsole();
 		scan.close();
 	}
-	
+
 	public static void Login() {
 		clearConsole();
 		String user;
@@ -84,11 +84,31 @@ public class Application {
 			Menu(i);
 		}
 	}
-	
+
 	public static void Menu(int userID) {
-		
+		clearConsole();
+		Scanner scan = new Scanner(System.in);
+
+		Boolean run = true;
+		while (run) {
+			System.out.println("Select form the following options:");
+			System.out.println("1: Purchase Items");
+			System.out.println("2: Return an item");
+			System.out.println("3: Exit");
+			String x = scan.next();
+			if (x.equals("1")) {
+				Login();
+			} else if (x.equals("2")) {
+				CreateAccount();
+			} else if (x.equals("3")) {
+				run = false;
+			} else {
+				System.out.println("Please enter a valid input");
+			}
+		}
+		scan.close();
 	}
-	
+
 	public static void clearConsole() {
 		for (int i = 0; i < 50; i++) {
 			System.out.println("");
