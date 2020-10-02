@@ -2,11 +2,17 @@ package com.shopping;
 
 import java.util.Scanner;
 
+import com.shopping.model.*;
+import com.shopping.dao.Storage;
+
 public class Application {
+	
+	static Storage s = new Storage();
+	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
+		clearConsole();
 
 		Boolean run = true;
 		while (run) {
@@ -26,68 +32,69 @@ public class Application {
 			}
 		}
 		scanner.close();
+		
 	}
 
 	public static void CreateAccount() {
 		clearConsole();
-		String name;
-		String email;
-		String password;
-		Scanner scan = new Scanner(System.in);
+		String name = null;
+		String email = null;
+		String password = null;
 		System.out.println("Please enter a Username");
 		Boolean n = true;
 		while (n) {
-			name = scan.next();
-			if (Services.UserExists(name)) {
+			name = scanner.next();
+			if (s.checkName(name)) {
 				System.out.println("Username is already taken. Please try another");
 			} else {
 				n = false;
 			}
 		}
-		clearConsole();
 		System.out.println("Please enter a email");
 		n = true;
 		while (n) {
-			email = scan.next();
-			if (Services.UserExists(email)) {
+			email = scanner.next();
+			if (s.checkEmail(email)) {
 				System.out.println("An account already uses that email. Please try another");
 			} else {
 				n = false;
 			}
 		}
-		clearConsole();
 		System.out.println("Please enter a password");
 		n = true;
 		while (n) {
-			password = scan.next();
-			if (Services.ValidPassword(password)) {
+			password = scanner.next();
+			if (s.validPassword(password)) {
 				n = false;
 			}
 		}
+		
+		User u = new User(name, email, password);
+		s.newUser(u);
 		clearConsole();
-		scan.close();
 	}
 
 	public static void Login() {
 		clearConsole();
 		String user;
 		String password;
-		Scanner scan = new Scanner(System.in);
 		System.out.println("Username:  ");
-		user = scan.next();
+		user = scanner.next();
 		System.out.println("Password:    ");
-		password = scan.next();
-		int i = Services.Login(user, password);
+		password = scanner.next();
+		int i = s.login(user, password);
 		if (i == -1) {
 			System.out.println("Incorrect Username or Password");
+		} else if(i == -2) {
+			System.out.println("No account with that username");
 		} else {
 			Menu(i);
 		}
+		clearConsole();
 	}
 
 	public static void Menu(int userID) {
 		clearConsole();
-		Scanner scan = new Scanner(System.in);
 
 		Boolean run = true;
 		while (run) {
@@ -95,18 +102,62 @@ public class Application {
 			System.out.println("1: Purchase Items");
 			System.out.println("2: Return an item");
 			System.out.println("3: Exit");
-			String x = scan.next();
+			String x = scanner.next();
 			if (x.equals("1")) {
-				Login();
+				clearConsole();
+				Purchase(userID);
 			} else if (x.equals("2")) {
-				CreateAccount();
+				
 			} else if (x.equals("3")) {
 				run = false;
 			} else {
 				System.out.println("Please enter a valid input");
 			}
 		}
-		scan.close();
+	}
+	
+	public static void Return(int i) {
+		
+	}
+	
+	public static void Purchase(int i) {
+		Boolean run = true;
+		while(run) {
+			System.out.println("Select an item to add to your cart");
+			s.printStore();
+			System.out.println("or, press 1 to view your cart. or 2 to return to main menu");
+			String x = scanner.next();
+			if (x.equals("1")) {
+				clearConsole();
+				s.viewCart(i);
+				if (checkout(i))
+					run = false;
+			} else if (x.equals("2")) {
+				run = false;
+			} else {
+				clearConsole();
+				s.addToCart(x, i);
+			}	
+		}
+	}
+	
+	public static Boolean checkout(int id) {
+		Boolean run = true;
+		while(run) {
+			System.out.println("Press 1 to check out, or 2 to return to shopping");
+			String in = scanner.next();
+			if (in.contentEquals("1")) {
+				clearConsole();
+				System.out.println("Thank you for your purchase");
+				s.buyCart(id);
+				return true;
+			} else if (in.equals("2")) {
+				run = false;
+			} else {
+				System.out.println("Please enter a valid input");
+			}
+		}
+		return false;
 	}
 
 	public static void clearConsole() {

@@ -4,7 +4,6 @@ public class Item {
 	private String ItemCode;
 	private String ItemName;
 	private double Price;
-	private int invoiceID;
 	
 	public Item (String code, String name, double price){
 		ItemCode = code;
@@ -31,12 +30,5 @@ public class Item {
 		Price = price;
 	}
 
-	public int getInvoiceID() {
-		return invoiceID;
-	}
-
-	public void setInvoiceID(int invoiceID) {
-		this.invoiceID = invoiceID;
-	}
 	
 }

@@ -10,10 +10,12 @@ public class User {
 	private ArrayList<Item> Cart;
 	private ArrayList<Item> OwnedItems;
 	
-	User(String name, String email, String password){
+	public User(String name, String email, String password){
 		UserName = name;
 		Email = email;
 		Password = password;
+		Cart = new ArrayList<Item>();
+		OwnedItems = new ArrayList<Item>();
 	}
 	
 	public void AddItemToCart(Item item) {
@@ -22,6 +24,7 @@ public class User {
 	public void RemoveItemFromCart(int index) {
 		Cart.remove(index);
 	}
+	
 	
 	
 	public String getUserName() {
