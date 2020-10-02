@@ -117,7 +117,32 @@ public class Application {
 	}
 	
 	public static void Return(int i) {
-		
+		clearConsole();
+		Boolean run = true;
+		while (run) {
+			System.out.println("Select a recipt for further details, or press 0 to exit");
+			s.printInv(i);
+			String str = scanner.next();
+			int val = Integer.parseInt(str);
+			if (val == 0)
+				run = false;
+			else {
+				if (s.showInvoiceID(val)) {
+					Boolean next = true;
+					while (next) {
+						System.out.println("Return these items? yes/no");
+						str = scanner.next();
+						if (str.equals("yes") || str.equals("y")) {
+							s.ReturnItems(val);
+						} else if (str.equals("no") || str.equals("n")) {
+							next = false;
+						} else {
+							System.out.println("Please enter 'yes' or 'no'");
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public static void Purchase(int i) {

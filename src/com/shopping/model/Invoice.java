@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 
 public class Invoice {
+	private static int count = 1;
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 	private int CustID;
 	private Timestamp Time;
@@ -15,6 +16,8 @@ public class Invoice {
 		Time = new Timestamp(System.currentTimeMillis());
 		CustID = cust;
 		Items = items;
+		InvID = count;
+		count++;
 	}
 
 	public void addItem(Item item) {

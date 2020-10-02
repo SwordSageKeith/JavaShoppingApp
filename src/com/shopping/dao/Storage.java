@@ -88,6 +88,39 @@ public class Storage {
 		u.setOwnedItems(u.getCart());
 		u.setCart(new ArrayList<Item>());
 	}
+	public void printInv(int id) {
+		for (Invoice i: invoice) {
+			if (i.getCustID() == id) {
+				System.out.println("" + i.getInvID()+ ":  number of items: " + i.getItems().size() + "     Time: " + i.getDate());
+			}
+		}
+	}
+	public Boolean showInvoiceID(int id) {
+		for (Invoice i: invoice) {
+			if (i.getInvID()==id) {
+				System.out.println("Invoice id:  " + i.getInvID());
+				System.out.println("Customer id:  " + i.getCustID());
+				System.out.println("Date of transaction:  " + i.getDate());
+				for (Item it: i.getItems()) {
+					System.out.println("Item:  " + it.getItemName() + "    Price:  " + it.getPrice());
+				}
+				return true;
+			}
+		}
+		System.out.println("No Invoice with that ID");
+		return false;
+	}
+	public void ReturnItems(int id) {
+		for (int i = 0; i < invoice.size(); i++) {
+			if (invoice.get(i).getInvID() == id) {
+				invoice.remove(i);
+				System.out.println("Items returned");
+				return;
+			}
+		}
+		System.out.println("Invalid invoice id");
+	}
+	
 	
 	public void printStore() {
 		for (Item i: store) {
